@@ -46,6 +46,8 @@ MainWindow::MainWindow(QWidget *parent) :
     /* create SSI and to toolbar */
     ssiSpacer = new QWidget();
     ssiSpacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    checkBoxCrc = new QCheckBox("CrcChk"); checkBoxCrc->setChecked(true);
+    ui->mainToolBar->addWidget(checkBoxCrc);
     ui->mainToolBar->addWidget(ssiSpacer);
     ssi = new CSsi(this);
     ui->mainToolBar->addWidget(ssi);
@@ -59,6 +61,19 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(afsk12, SIGNAL(newMessage(QString)), ui->textView, SLOT(appendPlainText(QString)));
 
     ui->statusBar->showMessage(tr("Decoder ready - select and input source then press start"));
+
+    connect(checkBoxCrc, &QCheckBox::stateChanged, [this](int state){
+        afsk12->isCrcCehck = state;
+        if (state){
+            ui->statusBar->setStyleSheet("background-color: #32cd32;");
+            ui->statusBar->showMessage(tr("CRC ON"));
+        }
+        else
+        {
+            ui->statusBar->setStyleSheet("background-color: rgb(255, 0, 0);");
+            ui->statusBar->showMessage(tr("CRC OFF !!!"));
+        }
+    });
 }
 
 MainWindow::~MainWindow()
@@ -103,6 +118,7 @@ void MainWindow::createDeviceSelector()
     ui->mainToolBar->insertWidget(ui->actionDecode, inputLabel);
     ui->mainToolBar->insertWidget(ui->actionDecode, inputSelector);
     ui->actionDecode->setToolTip(tr("Start decoder"));
+
 }
 
 

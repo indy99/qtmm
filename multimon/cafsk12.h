@@ -173,6 +173,9 @@ private:
     void hdlc_rxbit(struct demod_state *s, int bit);
     void verbprintf(int verb_level, const char *fmt, ...);
     void ax25_disp_packet(unsigned char *bp, unsigned int len);
+
+public:
+    int isCrcCehck = 1;
 };
 
 #endif // CAFSK12_H

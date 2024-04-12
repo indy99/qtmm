@@ -230,9 +230,11 @@ void CAfsk12::ax25_disp_packet(unsigned char *bp, unsigned int len)
     if (!bp || len < 10)
         return;
 #if 1
-    if (!check_crc_ccitt(bp, len)) {
-        verbprintf(6, "CRC check failed\n");
-        return;
+    if (isCrcCehck){
+        if (!check_crc_ccitt(bp, len)) {
+            verbprintf(6, "CRC check failed\n");
+            return;
+        }
     }
 #endif
 

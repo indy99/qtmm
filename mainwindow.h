@@ -5,6 +5,7 @@
 
 #include <QMainWindow>
 #include <QComboBox>
+#include <QCheckBox>
 #include <QLabel>
 #include <QAudioInput>
 #include <QList>
@@ -39,6 +40,7 @@ private:
     Ui::MainWindow *ui;
 
     QLabel     *inputLabel;
+    QCheckBox  *checkBoxCrc;
     QComboBox  *inputSelector;  // Audio input delector
     QWidget    *ssiSpacer;      // Spacer used to right align ssi
     CSsi       *ssi;            // Input level indicator
